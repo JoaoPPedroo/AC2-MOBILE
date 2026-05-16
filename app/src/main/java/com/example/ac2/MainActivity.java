@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // 🔹 Componentes
         edtNome = findViewById(R.id.edtNome);
         edtAno = findViewById(R.id.edtAno);
         edtNota = findViewById(R.id.edtNota);
@@ -42,10 +41,8 @@ public class MainActivity extends AppCompatActivity {
         btnSalvar = findViewById(R.id.btnSalvar);
         listView = findViewById(R.id.listViewFilmes);
 
-        // 🔹 Firebase
         db = FirebaseFirestore.getInstance();
 
-        // 🔹 Spinners
         ArrayAdapter<CharSequence> adapterTipo =
                 ArrayAdapter.createFromResource(this, R.array.tipos, android.R.layout.simple_spinner_item);
         adapterTipo.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -61,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
         adapterFiltro.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerFiltro.setAdapter(adapterFiltro);
 
-        // 🔹 Lista
         lista = new ArrayList<>();
         adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1,
@@ -69,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
 
         listView.setAdapter(adapter);
 
-        // 🔹 Clique curto (editar)
         listView.setOnItemClickListener((parent, view, position, id) -> {
 
             ModeloFilme f = lista.get(position);
@@ -81,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
             checkAssistido.setChecked(f.isAssistido());
         });
 
-        // 🔹 Clique longo (excluir)
         listView.setOnItemLongClickListener((parent, view, position, id) -> {
 
             ModeloFilme f = lista.get(position);
@@ -100,7 +94,6 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
 
-        // 🔹 Botão salvar / editar
         btnSalvar.setOnClickListener(v -> {
 
             Toast.makeText(this, "CLICOU", Toast.LENGTH_LONG).show();
@@ -137,7 +130,6 @@ public class MainActivity extends AppCompatActivity {
 
             ModeloFilme filme = new ModeloFilme(null, nome, tipo, genero, ano, nota, assistido);
 
-            // ✅ UPDATE
             if (idSelecionado != null) {
 
                 db.collection("filmes_series")
@@ -154,7 +146,6 @@ public class MainActivity extends AppCompatActivity {
                         });
 
             } else {
-                // ✅ INSERT
                 db.collection("filmes_series")
                         .add(filme)
                         .addOnSuccessListener(doc -> {
@@ -168,7 +159,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // 🔹 Filtro
         spinnerFiltro.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, android.view.View view, int position, long id) {
@@ -183,7 +173,6 @@ public class MainActivity extends AppCompatActivity {
         carregarDados("Todos");
     }
 
-    // 🔹 LIMPAR CAMPOS
     private void limparCampos() {
         edtNome.setText("");
         edtAno.setText("");
@@ -194,7 +183,6 @@ public class MainActivity extends AppCompatActivity {
         checkAssistido.setChecked(false);
     }
 
-    // 🔹 CARREGAR DADOS
     private void carregarDados(String filtro) {
 
         lista.clear();

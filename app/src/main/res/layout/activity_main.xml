@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:padding="16dp">
 
-    <!-- Nome -->
     <EditText
         android:id="@+id/edtNome"
         android:layout_width="0dp"
@@ -16,7 +15,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <!-- Tipo -->
     <Spinner
         android:id="@+id/spinnerTipo"
         android:layout_width="0dp"
