@@ -1,6 +1,8 @@
 package com.example.ac2.modelos;
 
 
+import com.google.firebase.firestore.Exclude;
+
 public class ModeloFilme {
 
     private String id;
@@ -24,6 +26,7 @@ public class ModeloFilme {
         this.assistido = assistido;
     }
 
+    @Exclude
     public String getId() {
         return id;
     }
